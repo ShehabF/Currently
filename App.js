@@ -2,6 +2,7 @@ import { View, SafeAreaView, Text, StyleSheet, StatusBar } from "react-native";
 import UserCurrencyBox from "./components/UserCurrencyBox";
 import ConversionCurrencyBox from "./components/ConversionCurrencyBox";
 import InfoBox from "./components/InfoBox";
+import Calculator from "./components/Calculator";
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
         <ConversionCurrencyBox />
       </View>
       <View style={styles.calculatorContainer}>
-        <Text style={{ color: "#ffffff" }}>Calculator Box</Text>
+        <Calculator />
       </View>
       <View style={styles.infoBoxContainer}>
         <InfoBox />
@@ -36,10 +37,8 @@ const styles = StyleSheet.create({
   },
   calculatorContainer: {
     flex: 4,
-    borderColor: "#ffffff",
-    borderWidth: 1,
   },
   infoBoxContainer: {
-    flex: 0.5,
+    flex: 0.3,
   },
 });

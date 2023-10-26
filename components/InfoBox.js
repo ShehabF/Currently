@@ -13,7 +13,7 @@ export default function InfoBox() {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.iconContainer}>
-        <Ionicons name="refresh" color="#FFFFFF" size={30} />
+        <Ionicons name="settings-outline" color="#FFFFFF" size={30} />
       </View>
       <View style={styles.infoContainer}>
         <Text style={{ color: "#00B132", paddingBottom: 5 }}>
@@ -22,7 +22,7 @@ export default function InfoBox() {
         <Text style={{ color: "#FFFFFF" }}>1 ZAR = 1 ZAR</Text>
       </View>
       <View style={styles.iconContainer}>
-        <Ionicons name="settings-outline" color="#FFFFFF" size={30} />
+        <Ionicons name="refresh" color="#FFFFFF" size={30} />
       </View>
     </View>
   );
@@ -38,10 +38,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: 15,
   },
   iconContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: 7,
   },
 });
