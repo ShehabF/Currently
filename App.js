@@ -89,7 +89,6 @@ export default function App() {
       <View style={styles.currencyContainer}>
         <UserCurrencyBox firstNumberDisplay={firstNumberDisplay} />
       </View>
-      <IconFill name="account-book" />
       <View style={styles.currencyContainer}>
         <ConversionCurrencyBox />
       </View>
