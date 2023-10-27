@@ -1,12 +1,17 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 
-export default function UserCurrencyBox({ firstNumberDisplay }) {
+export default function UserCurrencyBox({
+  firstNumberDisplay,
+  setIsModalVisible,
+}) {
   const flagIcon = require("../assets/RSAflag.png");
 
   return (
     <View style={styles.container}>
       <View style={styles.verticalCountryContainer}>
-        <Image source={flagIcon} style={styles.countryFlagIcon} />
+        <Pressable onPress={() => setIsModalVisible(true)}>
+          <Image source={flagIcon} style={styles.countryFlagIcon} />
+        </Pressable>
         <Text style={styles.currencyName}>ZAR</Text>
       </View>
 

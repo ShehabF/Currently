@@ -1,15 +1,18 @@
-import { View, SafeAreaView, Text, StyleSheet, StatusBar } from "react-native";
+import { View, SafeAreaView, StyleSheet, StatusBar, Modal } from "react-native";
 import UserCurrencyBox from "./components/UserCurrencyBox";
 import ConversionCurrencyBox from "./components/ConversionCurrencyBox";
 import InfoBox from "./components/InfoBox";
 import Calculator from "./components/Calculator";
 import { useState } from "react";
+import CurrencySearchModal from "./components/CurrencySearchModal";
 
 export default function App() {
   const [firstNumber, setFirstNumber] = useState("");
   const [secondNumber, setSecondNumber] = useState("");
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState(null);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleNumberPress = (buttonValue) => {
     if (firstNumber.length < 10) {
@@ -87,10 +90,13 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.currencyContainer}>
-        <UserCurrencyBox firstNumberDisplay={firstNumberDisplay} />
+        <UserCurrencyBox
+          firstNumberDisplay={firstNumberDisplay}
+          setIsModalVisible={setIsModalVisible}
+        />
       </View>
       <View style={styles.currencyContainer}>
-        <ConversionCurrencyBox />
+        <ConversionCurrencyBox setIsModalVisible={setIsModalVisible} />
       </View>
       <View style={styles.calculatorContainer}>
         <Calculator
@@ -105,6 +111,15 @@ export default function App() {
       <View style={styles.infoBoxContainer}>
         <InfoBox />
       </View>
+
+      <Modal
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+        animationType="slide"
+        presentationStyle="pageSheet"
+      >
+        <CurrencySearchModal />
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -114,6 +129,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000000",
     paddingTop: StatusBar.currentHeight,
+  },
+  modal: {
+    flex: 1,
+    backgroundColor: "#1E1E1E",
   },
   currencyContainer: {
     flex: 1,
