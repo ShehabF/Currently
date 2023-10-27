@@ -1,5 +1,13 @@
-import { useState } from "react";
 import { View, Text, Image, StyleSheet, Button, Pressable } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faMinus,
+  faPlus,
+  faTimes,
+  faDivide,
+  faDollarSign,
+  faArrowLeftLong,
+} from "@fortawesome/free-solid-svg-icons/";
 
 export default function CalcButton({
   onPress,
@@ -7,17 +15,33 @@ export default function CalcButton({
   isOperation,
   isNumber,
   isLong,
+  isDelete,
 }) {
   let styleSelection;
 
   if (isOperation) styleSelection = styles.operationButton;
   else if (isNumber) styleSelection = styles.numButton;
-  else if (isLong) styleSelection = styles.longButton;
+  else if (isLong || isDelete) styleSelection = styles.longButton;
 
+  let operationIcon;
+
+  if (title === "-") operationIcon = faMinus;
+  else if (title === "+") operationIcon = faPlus;
+  else if (title === "*") operationIcon = faTimes;
+  else if (title === "/") operationIcon = faDivide;
+  else if (title === "$") operationIcon = faDollarSign;
+  else if (title === "<--") operationIcon = faArrowLeftLong;
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      style={({ pressed }) => [pressed ? { opacity: 0.5 } : {}]}
+      onPress={onPress}
+    >
       <View style={styleSelection}>
-        <Text style={styles.labelStyle}>{title}</Text>
+        {isNumber || isLong ? (
+          <Text style={styles.labelStyle}>{title}</Text>
+        ) : (
+          <FontAwesomeIcon icon={operationIcon} color="#FFFFFF" size={30} />
+        )}
       </View>
     </Pressable>
   );

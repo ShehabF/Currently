@@ -1,30 +1,27 @@
-import { useState } from "react";
-import { View, Text, TextInput, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 
-export default function UserCurrencyBox() {
+export default function UserCurrencyBox({ firstNumberDisplay }) {
   const flagIcon = require("../assets/RSAflag.png");
 
-  const [text, setText] = useState("");
-
   return (
-    <View style={{ flex: 1, flexDirection: "row" }}>
+    <View style={styles.container}>
       <View style={styles.verticalCountryContainer}>
         <Image source={flagIcon} style={styles.countryFlagIcon} />
         <Text style={styles.currencyName}>ZAR</Text>
       </View>
 
-      <TextInput
-        style={styles.currencyInput}
-        placeholder="000000"
-        textAlign="right"
-        value={text}
-        onChangeText={setText}
-      />
+      <Text style={styles.currencyInput}>{firstNumberDisplay()}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    borderBottomWidth: 2,
+    borderBottomColor: "#1E1E1E",
+  },
   verticalCountryContainer: {
     flex: 0.7,
     flexDirection: "column",
@@ -45,6 +42,8 @@ const styles = StyleSheet.create({
     flex: 2,
     fontSize: 40,
     color: "#ffffff",
+    textAlign: "right",
+    paddingVertical: 30,
     paddingHorizontal: 15,
   },
 });
