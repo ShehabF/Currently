@@ -1,6 +1,7 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useState } from "react";
+import filter from "lodash.filter";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,44 +9,93 @@ import {
   StyleSheet,
   FlatList,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 
 export default function CurrencySearchModal() {
-  const [text, setText] = useState("Select a country");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+  const [currencyList, setCurrencyList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchQuery = (query) => {
+    setSearchQuery(query);
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(currencyList, (currency) => {
+      return contains(currency, formattedQuery);
+    });
+    setData(filteredData);
+  };
+
+  const contains = ({ title }, query) => {
+    if (title.includes(query)) {
+      return true;
+    }
+    return false;
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/posts?_limit=20`
+      );
+      const data = await response.json();
+
+      setData(data);
+      setCurrencyList(data);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchData();
+  }, []);
+
   return (
-    <View style={styles.modal}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
       <View style={styles.searchBar}>
         <TextInput
-          placeholder={text}
-          placeholderTextColor="#FFFFFF"
+          placeholder="Select a currency"
+          placeholderTextColor="#808080"
           style={styles.searchBarInput}
-          onChangeText={(e) => setText(e)}
-          onPressIn={() => setText("")}
+          value={searchQuery}
+          onChangeText={(query) => handleSearchQuery(query)}
         />
-        {text !== "" ? (
-          <Pressable onPress={() => setText("")}>
+        {searchQuery !== "" ? (
+          <Pressable onPress={() => setSearchQuery("")}>
             <FontAwesomeIcon icon={faCircleXmark} size={15} color="#FFFFFF" />
           </Pressable>
         ) : (
           ""
         )}
       </View>
-      <FlatList style={styles.countryList} />
-    </View>
+
+      <FlatList
+        style={styles.currencyListContainer}
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.currencyItem}>
+            <Text style={{ color: "#FFFFFF" }}>{item.title}</Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    flex: 1,
-    backgroundColor: "#1E1E1E",
-  },
   searchBar: {
     flexDirection: "row",
-    height: 40,
+    height: 50,
     width: 350,
     backgroundColor: "#000000",
-    borderRadius: 5,
+    borderRadius: 15,
     marginVertical: 20,
     marginHorizontal: 20,
     paddingHorizontal: 15,
@@ -53,8 +103,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchBarInput: {
-    fontSize: 14,
+    height: 50,
+    width: 300,
+    fontSize: 16,
     color: "#FFFFFF",
   },
-  countryList: {},
+  currencyItem: {
+    flex: 1,
+    height: 50,
+    borderBottomWidth: 1,
+    borderBottomColor: "#808080",
+  },
+  currencyListContainer: {
+    flex: 1,
+    backgroundColor: "#1E1E1E",
+    paddingHorizontal: 20,
+  },
 });
