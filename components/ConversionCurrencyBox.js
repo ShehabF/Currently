@@ -2,7 +2,6 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { CurrencyFlag } from "./CurrencyFlag";
 
 export default function ConversionCurrencyBox({ setIsModalVisible }) {
-  const flagIcon = require("../assets/RSAflag.png");
   return (
     <View style={{ flexDirection: "row", flex: 1 }}>
       <Text style={styles.currencyOutput}>0</Text>

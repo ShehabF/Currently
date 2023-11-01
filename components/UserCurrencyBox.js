@@ -5,8 +5,6 @@ export default function UserCurrencyBox({
   firstNumberDisplay,
   setIsModalVisible,
 }) {
-  const flagIcon = require("../assets/RSAflag.png");
-
   return (
     <View style={styles.container}>
       <View style={styles.verticalCountryContainer}>
