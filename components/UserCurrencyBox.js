@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { CurrencyFlag } from "./CurrencyFlag";
 
 export default function UserCurrencyBox({
   firstNumberDisplay,
@@ -10,9 +11,9 @@ export default function UserCurrencyBox({
     <View style={styles.container}>
       <View style={styles.verticalCountryContainer}>
         <Pressable onPress={() => setIsModalVisible(true)}>
-          <Image source={flagIcon} style={styles.countryFlagIcon} />
+          <CurrencyFlag currency="BDT" width={70} height={70} />
         </Pressable>
-        <Text style={styles.currencyName}>ZAR</Text>
+        <Text style={styles.currencyName}>BDT</Text>
       </View>
 
       <Text style={styles.currencyInput}>{firstNumberDisplay()}</Text>

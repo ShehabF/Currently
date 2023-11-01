@@ -3,8 +3,8 @@ import UserCurrencyBox from "./components/UserCurrencyBox";
 import ConversionCurrencyBox from "./components/ConversionCurrencyBox";
 import InfoBox from "./components/InfoBox";
 import Calculator from "./components/Calculator";
+import { DialogCurrency } from "./components/DialogCurrency";
 import { useState } from "react";
-import CurrencySearchModal from "./components/CurrencySearchModal";
 
 export default function App() {
   const [firstNumber, setFirstNumber] = useState("");
@@ -118,7 +118,17 @@ export default function App() {
         animationType="slide"
         presentationStyle="pageSheet"
       >
-        <CurrencySearchModal />
+        <DialogCurrency
+          onSelectItem={(data) => {
+            onSelect(data);
+          }}
+          setVisible={(value) => {
+            setVisible(value);
+            onClose && onClose();
+          }}
+          searchPlaceholder="Select a currency"
+          textEmpty="No matches found"
+        />
       </Modal>
     </SafeAreaView>
   );

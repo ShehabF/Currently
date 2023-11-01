@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { CurrencyFlag } from "./CurrencyFlag";
 
 export default function ConversionCurrencyBox({ setIsModalVisible }) {
   const flagIcon = require("../assets/RSAflag.png");
@@ -8,7 +9,7 @@ export default function ConversionCurrencyBox({ setIsModalVisible }) {
 
       <View style={styles.verticalCountryContainer}>
         <Pressable onPress={() => setIsModalVisible(true)}>
-          <Image source={flagIcon} style={styles.countryFlagIcon} />
+          <CurrencyFlag currency="ZAR" width={70} height={70} />
         </Pressable>
         <Text style={styles.currencyName}>ZAR</Text>
       </View>
