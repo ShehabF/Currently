@@ -4,7 +4,8 @@ import ConversionCurrencyBox from "./components/ConversionCurrencyBox";
 import InfoBox from "./components/InfoBox";
 import Calculator from "./components/Calculator";
 import { DialogCurrency } from "./components/DialogCurrency";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import dataCurrency from "./constants/CommonCurrency.json";
 
 export default function App() {
   const [firstNumber, setFirstNumber] = useState("");
@@ -13,6 +14,9 @@ export default function App() {
   const [result, setResult] = useState(null);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [userCurrencyCode, setUserCurrencyCode] = useState("USD");
+  const [conversionCurrencyCode, setConversionCurrencyCode] = useState("EUR");
+  const [onSelectFlag, setOnSelectFlag] = useState();
 
   const handleNumberPress = (buttonValue) => {
     if (firstNumber.length < 10) {
@@ -87,16 +91,67 @@ export default function App() {
       return numText;
     }
   };
+
+  const currencies = Object.values(dataCurrency);
+
+  useEffect(() => {
+    let currency = undefined;
+
+    if (userCurrencyCode) {
+      currency = currencies.filter((item) => item.code === userCurrencyCode)[0];
+    }
+
+    if (currency) {
+      const { code } = currency;
+      setUserCurrencyCode(code);
+    }
+    console.log(`User currency: ${userCurrencyCode}`);
+  }, [userCurrencyCode]);
+
+  useEffect(() => {
+    let currency = undefined;
+
+    if (conversionCurrencyCode) {
+      currency = currencies.filter(
+        (item) => item.code === conversionCurrencyCode
+      )[0];
+    }
+
+    if (currency) {
+      const { code } = currency;
+      setConversionCurrencyCode(code);
+    }
+    console.log(`Convert to: ${conversionCurrencyCode}`);
+  }, [conversionCurrencyCode]);
+
+  const onSelectUserCurrency = (data) => {
+    const { code } = data;
+    setUserCurrencyCode(code);
+    setIsModalVisible(false);
+  };
+
+  const onSelectConversionCurrency = (data) => {
+    const { code } = data;
+    setConversionCurrencyCode(code);
+    setIsModalVisible(false);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.currencyContainer}>
         <UserCurrencyBox
           firstNumberDisplay={firstNumberDisplay}
           setIsModalVisible={setIsModalVisible}
+          code={userCurrencyCode}
+          setOnSelectFlag={setOnSelectFlag}
         />
       </View>
       <View style={styles.currencyContainer}>
-        <ConversionCurrencyBox setIsModalVisible={setIsModalVisible} />
+        <ConversionCurrencyBox
+          setIsModalVisible={setIsModalVisible}
+          code={conversionCurrencyCode}
+          setOnSelectFlag={setOnSelectFlag}
+        />
       </View>
       <View style={styles.calculatorContainer}>
         <Calculator
@@ -120,11 +175,11 @@ export default function App() {
       >
         <DialogCurrency
           onSelectItem={(data) => {
-            onSelect(data);
+            if (onSelectFlag) onSelectUserCurrency(data);
+            else onSelectConversionCurrency(data);
           }}
           setVisible={(value) => {
-            setVisible(value);
-            onClose && onClose();
+            setIsModalVisible(value);
           }}
           searchPlaceholder="Select a currency"
           textEmpty="No matches found"

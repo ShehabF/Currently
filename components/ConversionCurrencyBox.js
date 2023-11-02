@@ -1,16 +1,25 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { CurrencyFlag } from "./CurrencyFlag";
 
-export default function ConversionCurrencyBox({ setIsModalVisible }) {
+export default function ConversionCurrencyBox({
+  setIsModalVisible,
+  code,
+  setOnSelectFlag,
+}) {
   return (
     <View style={{ flexDirection: "row", flex: 1 }}>
       <Text style={styles.currencyOutput}>0</Text>
 
       <View style={styles.verticalCountryContainer}>
-        <Pressable onPress={() => setIsModalVisible(true)}>
-          <CurrencyFlag currency="ZAR" width={70} height={70} />
+        <Pressable
+          onPress={() => {
+            setIsModalVisible(true);
+            setOnSelectFlag(false);
+          }}
+        >
+          <CurrencyFlag currency={code} width={70} height={70} />
         </Pressable>
-        <Text style={styles.currencyName}>ZAR</Text>
+        <Text style={styles.currencyName}>{code}</Text>
       </View>
     </View>
   );

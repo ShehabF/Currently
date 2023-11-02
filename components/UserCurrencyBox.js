@@ -4,14 +4,21 @@ import { CurrencyFlag } from "./CurrencyFlag";
 export default function UserCurrencyBox({
   firstNumberDisplay,
   setIsModalVisible,
+  code,
+  setOnSelectFlag,
 }) {
   return (
     <View style={styles.container}>
       <View style={styles.verticalCountryContainer}>
-        <Pressable onPress={() => setIsModalVisible(true)}>
-          <CurrencyFlag currency="BDT" width={70} height={70} />
+        <Pressable
+          onPress={() => {
+            setIsModalVisible(true);
+            setOnSelectFlag(true);
+          }}
+        >
+          <CurrencyFlag currency={code} width={70} height={70} />
         </Pressable>
-        <Text style={styles.currencyName}>BDT</Text>
+        <Text style={styles.currencyName}>{code}</Text>
       </View>
 
       <Text style={styles.currencyInput}>{firstNumberDisplay()}</Text>
