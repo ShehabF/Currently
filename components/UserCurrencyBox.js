@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { CurrencyFlag } from "./CurrencyFlag";
 
 export default function UserCurrencyBox({
@@ -30,8 +30,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    borderBottomWidth: 2,
-    borderBottomColor: "#1E1E1E",
   },
   verticalCountryContainer: {
     flex: 0.7,

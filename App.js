@@ -1,11 +1,20 @@
-import { View, SafeAreaView, StyleSheet, StatusBar, Modal } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
+  Modal,
+  Pressable,
+} from "react-native";
+import { useState, useEffect } from "react";
+import dataCurrency from "./constants/CommonCurrency.json";
 import UserCurrencyBox from "./components/UserCurrencyBox";
 import ConversionCurrencyBox from "./components/ConversionCurrencyBox";
 import InfoBox from "./components/InfoBox";
 import Calculator from "./components/Calculator";
 import { DialogCurrency } from "./components/DialogCurrency";
-import { useState, useEffect } from "react";
-import dataCurrency from "./constants/CommonCurrency.json";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [firstNumber, setFirstNumber] = useState("");
@@ -136,6 +145,13 @@ export default function App() {
     setIsModalVisible(false);
   };
 
+  const swapCurrencyCodes = () => {
+    let temp1 = userCurrencyCode;
+    let temp2 = conversionCurrencyCode;
+    setConversionCurrencyCode(temp1);
+    setUserCurrencyCode(temp2);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.currencyContainer}>
@@ -145,6 +161,15 @@ export default function App() {
           code={userCurrencyCode}
           setOnSelectFlag={setOnSelectFlag}
         />
+      </View>
+      <View style={styles.swapBtn}>
+        <Pressable onPress={() => swapCurrencyCodes()}>
+          <FontAwesomeIcon
+            icon={faArrowRightArrowLeft}
+            color="#3F3F3F"
+            size={30}
+          />
+        </Pressable>
       </View>
       <View style={styles.currencyContainer}>
         <ConversionCurrencyBox
@@ -164,7 +189,10 @@ export default function App() {
         />
       </View>
       <View style={styles.infoBoxContainer}>
-        <InfoBox />
+        <InfoBox
+          userCurrencyCode={userCurrencyCode}
+          conversionCurrencyCode={conversionCurrencyCode}
+        />
       </View>
 
       <Modal
@@ -199,8 +227,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#1E1E1E",
   },
+  swapBtn: {
+    flex: 0.2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   currencyContainer: {
-    flex: 1,
+    flex: 0.9,
     paddingHorizontal: 16,
   },
   calculatorContainer: {
