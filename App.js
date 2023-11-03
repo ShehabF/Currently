@@ -21,6 +21,8 @@ export default function App() {
   const [secondNumber, setSecondNumber] = useState("");
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState(null);
+  const [convertedResult, setConvertedResult] = useState(null);
+  const [exchangeRate, setExchangeRate] = useState(null);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userCurrencyCode, setUserCurrencyCode] = useState("USD");
@@ -152,6 +154,22 @@ export default function App() {
     setUserCurrencyCode(temp2);
   };
 
+  const fetchData = async (
+    userCurrencyCode = { userCurrencyCode },
+    conversionCurrencyCode = { conversionCurrencyCode },
+    result = { result }
+  ) => {
+    const conversion = await fetch(
+      `https://v6.exchangerate-api.com/v6/d2dde50c52e371105459446f/pair/${userCurrencyCode}/${conversionCurrencyCode}/${result}`
+    );
+    const data1 = await conversion.json();
+    console.log(data1);
+  };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [convertedResult, userCurrencyCode, conversionCurrencyCode]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.currencyContainer}>
@@ -163,7 +181,10 @@ export default function App() {
         />
       </View>
       <View style={styles.swapBtn}>
-        <Pressable onPress={() => swapCurrencyCodes()}>
+        <Pressable
+          style={({ pressed }) => [pressed ? { opacity: 0.5 } : {}]}
+          onPress={() => swapCurrencyCodes()}
+        >
           <FontAwesomeIcon
             icon={faArrowRightArrowLeft}
             color="#3F3F3F"
