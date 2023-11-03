@@ -69,13 +69,15 @@ export const DialogCurrency = (props) => {
   };
 
   const renderItemTemplate = ({ code, name }) => {
-    return (
-      <View style={styles.item}>
-        <CurrencyFlag currency={code} width={25} height={25} />
-        <Text style={styles.currencyName}>{code}</Text>
-        <Text style={styles.commonName}>{name}</Text>
-      </View>
-    );
+    if (code !== "ILS") {
+      return (
+        <View style={styles.item}>
+          <CurrencyFlag currency={code} width={25} height={25} />
+          <Text style={styles.currencyName}>{code}</Text>
+          <Text style={styles.commonName}>{name}</Text>
+        </View>
+      );
+    }
   };
 
   const renderItem = ({ item, index }) => {
@@ -162,12 +164,12 @@ const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     paddingTop: getStatusBarHeight() / 2,
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#000000",
     height: height,
   },
   listContainer: {
     paddingTop: getStatusBarHeight() / 2,
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 18,
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   },
   textInputContainer: {
     borderRadius: 7,
-    backgroundColor: "#000000",
+    backgroundColor: "#1E1E1E",
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
