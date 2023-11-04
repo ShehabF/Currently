@@ -3,8 +3,14 @@ import { View, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import moment from "moment/moment";
 
-export default function InfoBox({ userCurrencyCode, conversionCurrencyCode }) {
+export default function InfoBox({
+  userCurrencyCode,
+  conversionCurrencyCode,
+  exchangeRate,
+}) {
   const [currentDate, setCurrentDate] = useState("");
+
+  const formattedExchangeRate = parseFloat(exchangeRate).toFixed(2);
 
   useEffect(() => {
     var date = moment().utcOffset("+02:00").format("DD/MM/YYYY hh:mm A");
@@ -20,7 +26,8 @@ export default function InfoBox({ userCurrencyCode, conversionCurrencyCode }) {
           {currentDate}
         </Text>
         <Text style={{ color: "#FFFFFF" }}>
-          1 {userCurrencyCode} = 1 {conversionCurrencyCode}
+          1 {userCurrencyCode} = {formattedExchangeRate}{" "}
+          {conversionCurrencyCode}
         </Text>
       </View>
       <View style={styles.iconContainer}>

@@ -69,15 +69,13 @@ export const DialogCurrency = (props) => {
   };
 
   const renderItemTemplate = ({ code, name }) => {
-    if (code !== "ILS") {
-      return (
-        <View style={styles.item}>
-          <CurrencyFlag currency={code} width={25} height={25} />
-          <Text style={styles.currencyName}>{code}</Text>
-          <Text style={styles.commonName}>{name}</Text>
-        </View>
-      );
-    }
+    return (
+      <View style={styles.item}>
+        <CurrencyFlag currency={code} width={25} height={25} />
+        <Text style={styles.currencyName}>{code}</Text>
+        <Text style={styles.commonName}>{name}</Text>
+      </View>
+    );
   };
 
   const renderItem = ({ item, index }) => {

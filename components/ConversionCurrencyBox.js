@@ -5,10 +5,11 @@ export default function ConversionCurrencyBox({
   setIsModalVisible,
   code,
   setOnSelectFlag,
+  convertedResult,
 }) {
   return (
     <View style={{ flexDirection: "row", flex: 1 }}>
-      <Text style={styles.currencyOutput}>0</Text>
+      <Text style={styles.currencyOutput}>{convertedResult}</Text>
 
       <View style={styles.verticalCountryContainer}>
         <Pressable

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import dataCurrency from "./constants/CommonCurrency.json";
+import { API_KEY } from "@env";
 import UserCurrencyBox from "./components/UserCurrencyBox";
 import ConversionCurrencyBox from "./components/ConversionCurrencyBox";
 import InfoBox from "./components/InfoBox";
@@ -23,6 +24,7 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [convertedResult, setConvertedResult] = useState(null);
   const [exchangeRate, setExchangeRate] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userCurrencyCode, setUserCurrencyCode] = useState("USD");
@@ -76,7 +78,7 @@ export default function App() {
         break;
       default:
         clear();
-        setResult(0);
+        setResult((0).toFixed(2));
         break;
     }
   };
@@ -98,7 +100,7 @@ export default function App() {
     }
 
     if (firstNumber === "") {
-      numText = "0";
+      numText = "0.00";
       return numText;
     }
   };
@@ -154,21 +156,37 @@ export default function App() {
     setUserCurrencyCode(temp2);
   };
 
-  const fetchData = async (
-    userCurrencyCode = { userCurrencyCode },
-    conversionCurrencyCode = { conversionCurrencyCode },
-    result = { result }
-  ) => {
-    const conversion = await fetch(
-      `https://v6.exchangerate-api.com/v6/d2dde50c52e371105459446f/pair/${userCurrencyCode}/${conversionCurrencyCode}/${result}`
-    );
-    const data1 = await conversion.json();
-    console.log(data1);
+  const url = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${userCurrencyCode}`;
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      setExchangeRate(json.conversion_rates[conversionCurrencyCode]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [convertedResult, userCurrencyCode, conversionCurrencyCode]);
+  useEffect(() => {
+    fetchData();
+  }, [userCurrencyCode, conversionCurrencyCode]);
+
+  const convertResultCurrency = () => {
+    setConvertedResult((result * exchangeRate).toFixed(2));
+  };
+
+  const convertFirstNumberCurrency = () => {
+    setConvertedResult((firstNumber * exchangeRate).toFixed(2));
+
+    console.log(convertedResult);
+  };
+
+  useEffect(() => {
+    convertFirstNumberCurrency();
+  }, [firstNumber]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -197,6 +215,7 @@ export default function App() {
           setIsModalVisible={setIsModalVisible}
           code={conversionCurrencyCode}
           setOnSelectFlag={setOnSelectFlag}
+          convertedResult={convertedResult}
         />
       </View>
       <View style={styles.calculatorContainer}>
@@ -213,6 +232,7 @@ export default function App() {
         <InfoBox
           userCurrencyCode={userCurrencyCode}
           conversionCurrencyCode={conversionCurrencyCode}
+          exchangeRate={exchangeRate}
         />
       </View>
 

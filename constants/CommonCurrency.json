@@ -425,15 +425,6 @@
         "code": "IDR",
         "name_plural": "Indonesian rupiahs"
     },
-    "ILS": {
-        "symbol": "₪",
-        "name": "Israeli New Sheqel",
-        "symbol_native": "₪",
-        "decimal_digits": 2,
-        "rounding": 0,
-        "code": "ILS",
-        "name_plural": "Israeli new sheqels"
-    },
     "INR": {
         "symbol": "Rs",
         "name": "Indian Rupee",
