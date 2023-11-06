@@ -23,18 +23,15 @@ export default function App() {
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState(null);
   const [convertedResult, setConvertedResult] = useState(null);
-  const [exchangeRate, setExchangeRate] = useState(null);
-  const [isLoading, setLoading] = useState(true);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userCurrencyCode, setUserCurrencyCode] = useState("USD");
   const [conversionCurrencyCode, setConversionCurrencyCode] = useState("EUR");
+  const [exchangeRate, setExchangeRate] = useState(null);
   const [onSelectFlag, setOnSelectFlag] = useState();
 
   const handleNumberPress = (buttonValue) => {
     if (firstNumber.length < 10) {
-      if (secondNumber !== "" && firstNumber === "0.00") setFirstNumber("");
-
       setFirstNumber(firstNumber + buttonValue);
     }
   };
@@ -153,9 +150,8 @@ export default function App() {
 
   const swapCurrencyCodes = () => {
     let temp1 = userCurrencyCode;
-    let temp2 = conversionCurrencyCode;
+    setUserCurrencyCode(conversionCurrencyCode);
     setConversionCurrencyCode(temp1);
-    setUserCurrencyCode(temp2);
   };
 
   const url = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${userCurrencyCode}`;
@@ -167,8 +163,6 @@ export default function App() {
       setExchangeRate(json.conversion_rates[conversionCurrencyCode]);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
