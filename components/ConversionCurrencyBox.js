@@ -9,7 +9,9 @@ export default function ConversionCurrencyBox({
 }) {
   return (
     <View style={{ flexDirection: "row", flex: 1 }}>
-      <Text style={styles.currencyOutput}>{convertedResult}</Text>
+      <Text style={styles.currencyOutput}>
+        {isNaN(convertedResult) ? "" : convertedResult}
+      </Text>
 
       <View style={styles.verticalCountryContainer}>
         <Pressable

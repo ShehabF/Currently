@@ -33,6 +33,8 @@ export default function App() {
 
   const handleNumberPress = (buttonValue) => {
     if (firstNumber.length < 10) {
+      if (secondNumber !== "" && firstNumber === "0.00") setFirstNumber("");
+
       setFirstNumber(firstNumber + buttonValue);
     }
   };
@@ -100,7 +102,7 @@ export default function App() {
     }
 
     if (firstNumber === "") {
-      numText = "0.00";
+      numText = "";
       return numText;
     }
   };
@@ -174,19 +176,17 @@ export default function App() {
     fetchData();
   }, [userCurrencyCode, conversionCurrencyCode]);
 
-  const convertResultCurrency = () => {
-    setConvertedResult((result * exchangeRate).toFixed(2));
-  };
-
   const convertFirstNumberCurrency = () => {
-    setConvertedResult((firstNumber * exchangeRate).toFixed(2));
+    let displayNum = parseFloat(firstNumberDisplay());
+
+    setConvertedResult((displayNum * exchangeRate).toFixed(2));
 
     console.log(convertedResult);
   };
 
   useEffect(() => {
     convertFirstNumberCurrency();
-  }, [firstNumber]);
+  }, [firstNumber, result]);
 
   return (
     <SafeAreaView style={styles.container}>
