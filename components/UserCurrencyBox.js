@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   currencyName: {
     fontSize: 12,
+    fontWeight: "bold",
     color: "#ffffff",
     paddingTop: 5,
   },

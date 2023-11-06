@@ -16,6 +16,7 @@ import Calculator from "./components/Calculator";
 import { DialogCurrency } from "./components/DialogCurrency";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import DialogInfo from "./components/DialogInfo";
 
 export default function App() {
   const [firstNumber, setFirstNumber] = useState("");
@@ -25,6 +26,7 @@ export default function App() {
   const [convertedResult, setConvertedResult] = useState(null);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isInfoModalVisible, setIsInfoModalVisible] = useState(false);
   const [userCurrencyCode, setUserCurrencyCode] = useState("USD");
   const [conversionCurrencyCode, setConversionCurrencyCode] = useState("EUR");
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -117,7 +119,6 @@ export default function App() {
       const { code } = currency;
       setUserCurrencyCode(code);
     }
-    console.log(`User currency: ${userCurrencyCode}`);
   }, [userCurrencyCode]);
 
   useEffect(() => {
@@ -133,7 +134,6 @@ export default function App() {
       const { code } = currency;
       setConversionCurrencyCode(code);
     }
-    console.log(`Convert to: ${conversionCurrencyCode}`);
   }, [conversionCurrencyCode]);
 
   const onSelectUserCurrency = (data) => {
@@ -174,8 +174,6 @@ export default function App() {
     let displayNum = parseFloat(firstNumberDisplay());
 
     setConvertedResult((displayNum * exchangeRate).toFixed(2));
-
-    console.log(convertedResult);
   };
 
   useEffect(() => {
@@ -227,6 +225,7 @@ export default function App() {
           userCurrencyCode={userCurrencyCode}
           conversionCurrencyCode={conversionCurrencyCode}
           exchangeRate={exchangeRate}
+          setIsInfoModalVisible={setIsInfoModalVisible}
         />
       </View>
 
@@ -247,6 +246,15 @@ export default function App() {
           searchPlaceholder="Select a currency"
           textEmpty="No matches found"
         />
+      </Modal>
+
+      <Modal
+        visible={isInfoModalVisible}
+        onRequestClose={() => setIsInfoModalVisible(false)}
+        animationType="slide"
+        presentationStyle="pageSheet"
+      >
+        <DialogInfo />
       </Modal>
     </SafeAreaView>
   );

@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingVertical: 15,
   },
   countryFlagIcon: {
     width: 70,
@@ -42,6 +41,7 @@ const styles = StyleSheet.create({
   },
   currencyName: {
     fontSize: 12,
+    fontWeight: "bold",
     color: "#ffffff",
     paddingTop: 5,
   },
