@@ -14,9 +14,9 @@ export default function InfoBox({
   conversionCurrencyCode,
   exchangeRate,
   setIsInfoModalVisible,
+  fetchData,
 }) {
   const [currentDate, setCurrentDate] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState("");
 
   const formattedExchangeRate = parseFloat(exchangeRate).toFixed(2);
 
@@ -37,6 +37,10 @@ export default function InfoBox({
       toValue: 1,
       useNativeDriver: false,
     }).start();
+
+    var date = moment().utcOffset("+02:00").format("DD/MM/YYYY hh:mm:ss A");
+    setCurrentDate(date);
+    fetchData();
   };
 
   const onPressOut = () => {
@@ -47,9 +51,10 @@ export default function InfoBox({
   };
 
   useEffect(() => {
-    var date = moment().utcOffset("+02:00").format("DD/MM/YYYY hh:mm A");
+    var date = moment().utcOffset("+02:00").format("DD/MM/YYYY hh:mm:ss A");
     setCurrentDate(date);
   }, []);
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.iconContainer}>

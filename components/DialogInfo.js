@@ -42,7 +42,8 @@ export default function DialogInfo() {
           to obtain up to date exchange rates
         </Text>
         <Text style={styles.text}>
-          A special thanks to my wife Zarah for encouraging and supporting me!
+          A special thank you to my wife Zarah for encouraging and supporting
+          me!
         </Text>
       </ImageBackground>
     </View>

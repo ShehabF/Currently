@@ -226,6 +226,7 @@ export default function App() {
           conversionCurrencyCode={conversionCurrencyCode}
           exchangeRate={exchangeRate}
           setIsInfoModalVisible={setIsInfoModalVisible}
+          fetchData={fetchData}
         />
       </View>
 
