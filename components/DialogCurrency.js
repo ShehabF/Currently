@@ -71,7 +71,7 @@ export const DialogCurrency = (props) => {
   const renderItemTemplate = ({ code, name }) => {
     return (
       <View style={styles.item}>
-        <CurrencyFlag currency={code} width={25} height={25} />
+        <CurrencyFlag currency={code} width={35} height={35} />
         <Text style={styles.currencyName}>{code}</Text>
         <Text style={styles.commonName}>{name}</Text>
       </View>

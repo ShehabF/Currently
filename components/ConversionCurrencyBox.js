@@ -20,7 +20,7 @@ export default function ConversionCurrencyBox({
             setOnSelectFlag(false);
           }}
         >
-          <CurrencyFlag currency={code} width={70} height={70} />
+          <CurrencyFlag currency={code} width={90} height={90} />
         </Pressable>
         <Text style={styles.currencyName}>{code}</Text>
       </View>
@@ -35,15 +35,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  countryFlagIcon: {
-    width: 70,
-    height: 70,
-  },
   currencyName: {
     fontSize: 12,
     fontWeight: "bold",
     color: "#ffffff",
-    paddingTop: 5,
   },
   currencyOutput: {
     flex: 2,
