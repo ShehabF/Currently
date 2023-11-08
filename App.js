@@ -5,6 +5,7 @@ import {
   StatusBar,
   Modal,
   Pressable,
+  Platform,
 } from "react-native";
 import { useState, useEffect } from "react";
 import dataCurrency from "./constants/CommonCurrency.json";
@@ -265,7 +266,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000000",
-    paddingTop: StatusBar.currentHeight,
+    paddingTop:
+      Platform.OS === "ios"
+        ? StatusBar.currentHeight / 2
+        : StatusBar.currentHeight,
   },
   modal: {
     flex: 1,
@@ -281,9 +285,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   calculatorContainer: {
-    flex: 4,
+    flex: Platform.OS === "ios" ? 4 : 3.5,
   },
   infoBoxContainer: {
-    flex: 0.3,
+    flex: Platform.OS === "ios" ? 0.3 : 1,
   },
 });

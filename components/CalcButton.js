@@ -49,7 +49,7 @@ export default function CalcButton({
 
 const styles = StyleSheet.create({
   operationButton: {
-    width: 96,
+    width: Platform.OS === "ios" ? 96 : 101,
     height: 96,
     backgroundColor: "#00B132",
     justifyContent: "center",
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     margin: 0.5,
   },
   numButton: {
-    width: 96,
+    width: Platform.OS === "ios" ? 96 : 101,
     height: 96,
     backgroundColor: "#1E1E1E",
     justifyContent: "center",
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     margin: 0.5,
   },
   longButton: {
-    width: 193,
+    width: Platform.OS === "ios" ? 193 : 203,
     height: 96,
     backgroundColor: "#1E1E1E",
     justifyContent: "center",

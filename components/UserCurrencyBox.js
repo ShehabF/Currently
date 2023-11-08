@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingVertical: 15,
+    paddingVertical: Platform.OS === "ios" ? 0 : 10,
   },
   currencyName: {
     fontSize: 12,
