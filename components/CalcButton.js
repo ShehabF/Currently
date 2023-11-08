@@ -1,4 +1,5 @@
-import { View, Text, Image, StyleSheet, Button, Pressable } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faMinus,

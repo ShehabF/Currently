@@ -157,7 +157,7 @@ export const DialogCurrency = (props) => {
 };
 
 const marginBottomByPlatform = Platform.OS === "ios" ? 5 : 0;
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -50,7 +51,7 @@ export default function DialogInfo() {
   );
 }
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {

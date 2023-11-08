@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import { CurrencyFlag } from "./CurrencyFlag";
 
 export default function UserCurrencyBox({

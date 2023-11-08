@@ -1,3 +1,4 @@
+import React from "react";
 import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import { CurrencyFlag } from "./CurrencyFlag";
 
